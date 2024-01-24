@@ -1,16 +1,9 @@
-# bloc_tdd_sample
+# Bloc TDD Sample
 
-A new Flutter project.
+## Introduction
 
-## Getting Started
+Welcome to `bloc_tdd_sample`, a Flutter project where Test-Driven Development (TDD) meets the BLoC pattern and clean architecture. This project serves as a practical guide and sample implementation for those looking to integrate TDD, BLoC, and clean architectural practices in their Flutter applications.
 
-This project is a starting point for a Flutter application.
+## Overview
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project demonstrates the implementation of a Flutter application using the BLoC pattern with a focus on TDD and clean architecture. The goal is to showcase how these methodologies and patterns can be effectively combined to create a scalable, maintainable, and testable codebase.
