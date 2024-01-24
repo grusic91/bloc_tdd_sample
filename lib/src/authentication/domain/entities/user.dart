@@ -12,17 +12,14 @@ class User extends Equatable {
   final String createdAt;
   final String name;
   final String avatar;
-/*
-this is done by equatable
-  @override
-  bool operator ==(other) {
-    return identical(this, other) ||
-        other is User && other.runtimeType == runtimeType && other.id == id;
-  }
 
-  @override
-  int get hashCode => id.hashCode ^ name.hashCode;
-   */
+  const User.empty()
+      : this(
+            id: 1,
+            createdAt: '_empty.createdAt',
+            name: '_empty.name',
+            avatar: '_empty.avatar');
+
   @override
   List<Object?> get props => [id];
 }
