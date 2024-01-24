@@ -5,18 +5,19 @@ import 'package:bloc_tdd_sample/src/authentication/domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({
-    required super.avatar,
     required super.id,
+    required super.avatar,
     required super.createdAt,
     required super.name,
   });
 
   const UserModel.empty()
       : this(
-            id: '1',
-            createdAt: '_empty.createdAt',
-            name: '_empty.name',
-            avatar: '_empty.avatar');
+          id: '1',
+          avatar: '_empty.avatar',
+          createdAt: '_empty.createdAt',
+          name: '_empty.name',
+        );
 
   // Data that comes from the server
   factory UserModel.fromJson(String source) =>
@@ -24,8 +25,8 @@ class UserModel extends User {
 
   UserModel.fromMap(DataMap map)
       : this(
-          avatar: map['avatar'] as String,
           id: map['id'] as String,
+          avatar: map['avatar'] as String,
           createdAt: map['createdAt'] as String,
           name: map['name'] as String,
         );
@@ -42,15 +43,15 @@ class UserModel extends User {
 
   // Update User with copyWith()
   UserModel copyWith({
-    String? avatar,
     String? id,
+    String? avatar,
     String? createdAt,
     String? name,
   }) {
     // updated with new values if they are not null otherwise use one from "this".
     return UserModel(
-      avatar: avatar ?? this.avatar,
       id: id ?? this.id,
+      avatar: avatar ?? this.avatar,
       createdAt: createdAt ?? this.createdAt,
       name: name ?? this.name,
     );
