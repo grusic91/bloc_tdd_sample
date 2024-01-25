@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc_tdd_sample/core/errors/exceptions.dart';
 import 'package:bloc_tdd_sample/core/utils/constants.dart';
+import 'package:bloc_tdd_sample/core/utils/typedef.dart';
 import 'package:bloc_tdd_sample/src/authentication/data/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -53,6 +54,22 @@ class AuthRemoteDataSrcImpl implements AuthenticationRemoteDataSource {
   @override
   Future<List<UserModel>> getUsers() async {
     // call the remote data source
-    throw UnimplementedError();
+    try {
+      final response =
+          await _client.get(Uri.parse('$kBaseUrl$kCreateUserEndpoint'));
+
+      if (response.statusCode != 200) {
+        throw APIException(
+            message: response.body, statusCode: response.statusCode);
+      }
+
+      return List<DataMap>.from(jsonDecode(response.body) as List)
+          .map((userData) => UserModel.fromMap(userData))
+          .toList();
+    } on APIException {
+      rethrow;
+    } catch (e) {
+      throw APIException(message: e.toString(), statusCode: 505);
+    }
   }
 }

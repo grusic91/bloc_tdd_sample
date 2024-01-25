@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc_tdd_sample/core/errors/exceptions.dart';
 import 'package:bloc_tdd_sample/core/utils/constants.dart';
 import 'package:bloc_tdd_sample/src/authentication/data/datasources/authentication_remote_data_source.dart';
+import 'package:bloc_tdd_sample/src/authentication/data/models/user_model.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:mocktail/mocktail.dart';
@@ -77,6 +78,42 @@ void main() {
         ),
       ).called(1);
 
+      verifyNoMoreInteractions(client);
+    });
+  });
+
+  group('getUsers', () {
+    const tUsers = [UserModel.empty()];
+    test('should return [List<User>] when the status code is 200', () async {
+      when(() => client.get(any())).thenAnswer(
+          (_) async => http.Response(jsonEncode([tUsers.first.toMap()]), 200));
+
+      final result = await remoteDataSource.getUsers();
+
+      expect(result, equals(tUsers));
+
+      verify(() => client.get(Uri.parse('$kBaseUrl$kCreateUserEndpoint')))
+          .called(1);
+      verifyNoMoreInteractions(client);
+    });
+
+    test('should throw an [APIException] when the status code is not 200',
+        () async {
+      const tMessage = 'Server down, something went wrong!';
+      when(() => client.get(any())).thenAnswer(
+        (_) async => http.Response(
+          tMessage,
+          505,
+        ),
+      );
+
+      final methodCall = remoteDataSource.getUsers;
+
+      expect(() => methodCall(),
+          throwsA(const APIException(message: tMessage, statusCode: 505)));
+
+      verify(() => client.get(Uri.parse('$kBaseUrl$kCreateUserEndpoint')))
+          .called(1);
       verifyNoMoreInteractions(client);
     });
   });
