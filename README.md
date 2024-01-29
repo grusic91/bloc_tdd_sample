@@ -7,3 +7,5 @@ Welcome to `bloc_tdd_sample`, a Flutter project where Test-Driven Development (T
 ## Overview
 
 This project demonstrates the implementation of a Flutter application using the BLoC pattern with a focus on TDD and clean architecture. The goal is to showcase how these methodologies and patterns can be effectively combined to create a scalable, maintainable, and testable codebase.
+
+Project is structured in a way of Data, Domain and Presentation layer
