@@ -1,6 +1,12 @@
+import 'package:bloc_tdd_sample/core/services/injection_container.dart';
+import 'package:bloc_tdd_sample/src/authentication/presentation/cubit/authentication_cubit.dart';
+import 'package:bloc_tdd_sample/src/authentication/presentation/views/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(const MyApp());
 }
 
@@ -10,16 +16,16 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        useMaterial3: true,
-      ),
-      home: const Scaffold(
-        body: Center(
-          child: Text("Hello World!"),
+    return BlocProvider(
+      create: (context) => sl<AuthenticationCubit>(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+          useMaterial3: true,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        home: const HomeScreen(),
       ),
     );
   }
